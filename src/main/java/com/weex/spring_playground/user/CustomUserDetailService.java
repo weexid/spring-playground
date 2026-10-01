@@ -1,7 +1,5 @@
 package com.weex.spring_playground.user;
 
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.NullMarked;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

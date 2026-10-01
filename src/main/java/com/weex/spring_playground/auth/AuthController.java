@@ -8,6 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.util.Map;
 
 @RestController
@@ -27,7 +33,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(
-            @RequestBody RegisterRequest request
+            @Valid @RequestBody RegisterRequest request
     ) {
         if (userRepository.existsByEmail(request.email())) {
             return ResponseEntity
@@ -38,7 +44,7 @@ public class AuthController {
         }
 
         User user = new User(
-                request.name(),
+                request.username(),
                 request.email(),
                 passwordEncoder.encode(request.password())
         );
@@ -53,8 +59,8 @@ public class AuthController {
     }
 
     public record RegisterRequest(
-            String name,
-            String email,
-            String password
+            @NotBlank @Size(min = 2, max = 100) String username,
+            @Email @NotBlank String email,
+            @NotBlank @Size(min = 6) String password
     ) {}
 }
