@@ -35,11 +35,14 @@ public class AuthController {
     public ResponseEntity<?> register(
             @Valid @RequestBody RegisterRequest request
     ) {
-        if (userRepository.existsByEmail(request.email())) {
+        // trim email
+        String email = request.email().trim().toLowerCase(), username = request.username().trim();
+
+        if (userRepository.existsByEmail(email) || userRepository.existsByUsername(username)) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
                     .body(Map.of(
-                            "message", "Email sudah digunakan"
+                            "message", "username atau email sudah digunakan"
                     ));
         }
 
