@@ -27,7 +27,8 @@ public class SecurityConfig {
                                 "/auth/register",
                                 "/auth/login",
                                 "/error",
-                                "/db-test"
+                                "/db-test",
+                                "/"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
