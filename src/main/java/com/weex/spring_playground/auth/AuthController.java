@@ -44,8 +44,8 @@ public class AuthController {
         }
 
         User user = new User(
-                request.username(),
-                request.email(),
+                username,
+                email,
                 passwordEncoder.encode(request.password())
         );
 
