@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.weex.spring_playground.config.common.ApiErrorResponse;
+import com.weex.spring_playground.config.common.ConflictException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -61,6 +62,20 @@ public class GlobalExceptionHandler {
                 HttpStatus.CONFLICT.value(),
                 HttpStatus.CONFLICT.getReasonPhrase(),
                 "Terjadi konflik data",
+                req.getRequestURI(),
+                null
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
+    @ExceptionHandler (ConflictException.class)
+        public ResponseEntity<?> handleConflict(ConflictException exception, HttpServletRequest req) {
+        logger.warn("Conflict: {}", exception.getMessage());
+        ApiErrorResponse response = new ApiErrorResponse(
+                Instant.now().toString(),
+                HttpStatus.CONFLICT.value(),
+                HttpStatus.CONFLICT.getReasonPhrase(),
+                exception.getMessage(),
                 req.getRequestURI(),
                 null
         );

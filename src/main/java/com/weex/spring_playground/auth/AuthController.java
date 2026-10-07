@@ -1,5 +1,6 @@
 package com.weex.spring_playground.auth;
 
+import com.weex.spring_playground.config.common.ConflictException;
 import com.weex.spring_playground.user.User;
 import com.weex.spring_playground.user.UserRepository;
 
@@ -39,11 +40,7 @@ public class AuthController {
         String email = request.email().trim().toLowerCase(), username = request.username().trim();
 
         if (userRepository.existsByEmail(email) || userRepository.existsByUsername(username)) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body(Map.of(
-                            "message", "username atau email sudah digunakan"
-                    ));
+            throw new ConflictException("username or email already used!");
         }
 
         User user = new User(
