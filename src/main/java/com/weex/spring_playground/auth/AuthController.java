@@ -1,5 +1,6 @@
 package com.weex.spring_playground.auth;
 
+import com.weex.spring_playground.config.common.ApiSuccessResponse;
 import com.weex.spring_playground.config.common.ConflictException;
 import com.weex.spring_playground.user.User;
 import com.weex.spring_playground.user.UserRepository;
@@ -9,13 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-import java.util.Map;
+import java.time.Instant;
 
 @RestController
 @RequestMapping("/auth")
@@ -33,8 +35,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(
-            @Valid @RequestBody RegisterRequest request
+    public ResponseEntity<ApiSuccessResponse<Void>> register(
+            @Valid @RequestBody RegisterRequest request, HttpServletRequest req
     ) {
         // trim email
         String email = request.email().trim().toLowerCase(), username = request.username().trim();
@@ -50,12 +52,17 @@ public class AuthController {
         );
 
         userRepository.save(user);
+        var body = new ApiSuccessResponse<Void>(
+                Instant.now().toString(),
+                HttpStatus.CREATED.value(),
+                "Successfully registered",
+                req.getRequestURI(),
+                null
+        );
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(Map.of(
-                        "message", "Register berhasil"
-                ));
+                .body(body);
     }
 
     public record RegisterRequest(
