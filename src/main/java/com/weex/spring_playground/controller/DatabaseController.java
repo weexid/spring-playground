@@ -21,4 +21,9 @@ public class DatabaseController {
 
         return "Database connected: " + result;
     }
+
+    @GetMapping("/health")
+    public String healthCheck() {
+        return "OK";
+    }
 }
