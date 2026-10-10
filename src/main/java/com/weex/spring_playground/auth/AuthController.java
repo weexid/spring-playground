@@ -17,6 +17,7 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -119,6 +120,25 @@ public class AuthController {
         }
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<ApiSuccessResponse<MeResponse>> me(
+        Authentication authentication,
+        HttpServletRequest req
+    ) {
+        User user = userRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        var body = new ApiSuccessResponse<>(
+                Instant.now().toString(),
+                HttpStatus.OK.value(),
+                "User retrieved",
+                req.getRequestURI(),
+                new MeResponse(user.getId(), user.getUsername(), user.getEmail())
+        );
+
+        return ResponseEntity.ok(body);
+    }
+
     public record RegisterRequest(
             @NotBlank @Size(min = 2, max = 100) String username,
             @Email @NotBlank String email,
@@ -128,5 +148,11 @@ public class AuthController {
     public record LoginRequest(
         @Email @NotBlank String email,
         @NotBlank String password
+    ) {}
+
+    public record MeResponse(
+        Long id,
+        String username,
+        String email
     ) {}
 }
