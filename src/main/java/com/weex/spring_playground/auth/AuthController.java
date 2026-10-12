@@ -30,6 +30,7 @@ import jakarta.validation.constraints.Size;
 
 
 import java.time.Instant;
+import java.util.List;
 
 
 @RestController
@@ -125,15 +126,23 @@ public class AuthController {
         Authentication authentication,
         HttpServletRequest req
     ) {
-        User user = userRepository.findByEmail(authentication.getName())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        User user = userRepository.findWithRolesAndPermissionsByEmail(authentication.getName())
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         var body = new ApiSuccessResponse<>(
                 Instant.now().toString(),
                 HttpStatus.OK.value(),
                 "User retrieved",
                 req.getRequestURI(),
-                new MeResponse(user.getId(), user.getUsername(), user.getEmail())
+                new MeResponse(
+                    user.getId(),
+                    user.getUsername(),
+                    user.getEmail(),
+                    user.getRoles().stream()
+                        .map(role -> role.getName())
+                        .sorted()
+                        .toList()
+                )
         );
 
         return ResponseEntity.ok(body);
@@ -153,6 +162,7 @@ public class AuthController {
     public record MeResponse(
         Long id,
         String username,
-        String email
+        String email,
+        List<String> roles
     ) {}
 }

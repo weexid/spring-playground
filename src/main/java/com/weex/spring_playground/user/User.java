@@ -1,5 +1,8 @@
 package com.weex.spring_playground.user;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -28,6 +31,14 @@ public class User {
         this.password_hash = password;
     }
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "user_roles",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -42,5 +53,9 @@ public class User {
 
     public String getPassword() {
         return password_hash;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 }
