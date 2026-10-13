@@ -1,7 +1,7 @@
 package com.weex.spring_playground.auth;
 
-import com.weex.spring_playground.config.common.ApiSuccessResponse;
-import com.weex.spring_playground.config.common.ConflictException;
+import com.weex.spring_playground.common.api.ApiSuccessResponse;
+import com.weex.spring_playground.common.exception.ConflictException;
 import com.weex.spring_playground.user.User;
 import com.weex.spring_playground.user.UserRepository;
 

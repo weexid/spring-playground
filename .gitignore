@@ -33,4 +33,7 @@ build/
 .vscode/
 .env
 
+# Runtime logs
+logs/
+
 logs/

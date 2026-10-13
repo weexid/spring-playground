@@ -11,8 +11,8 @@
 	<groupId>com.weex</groupId>
 	<artifactId>spring-playground</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>spring-playground</name>
+	<description>Spring Boot playground for authentication, authorization, and database features.</description>
 	<url/>
 	<licenses>
 		<license/>

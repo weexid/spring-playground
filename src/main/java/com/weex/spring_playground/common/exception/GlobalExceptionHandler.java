@@ -1,4 +1,4 @@
-package com.weex.spring_playground;
+package com.weex.spring_playground.common.exception;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-import com.weex.spring_playground.config.common.ApiErrorResponse;
-import com.weex.spring_playground.config.common.ConflictException;
+import com.weex.spring_playground.common.api.ApiErrorResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
 

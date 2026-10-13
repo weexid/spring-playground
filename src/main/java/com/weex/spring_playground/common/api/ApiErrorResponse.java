@@ -1,4 +1,4 @@
-package com.weex.spring_playground.config.common;
+package com.weex.spring_playground.common.api;
 
 import java.util.Map;
 

@@ -13,8 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.time.Instant;
-import com.weex.spring_playground.config.common.ApiErrorResponse;
-import com.weex.spring_playground.config.common.ApiSuccessResponse;
+import com.weex.spring_playground.common.api.ApiErrorResponse;
+import com.weex.spring_playground.common.api.ApiSuccessResponse;
 
 import tools.jackson.databind.ObjectMapper;
 
