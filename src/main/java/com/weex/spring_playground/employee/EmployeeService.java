@@ -2,7 +2,7 @@ package com.weex.spring_playground.employee;
 
 import java.util.List;
 
-import com.weex.spring_playground.config.common.ConflictException;
+import com.weex.spring_playground.common.exception.ConflictException;
 import com.weex.spring_playground.employee.dto.CreateEmployeeRequest;
 import com.weex.spring_playground.employee.dto.EmployeeResponse;
 import com.weex.spring_playground.employee.dto.UpdateEmployeeRequest;

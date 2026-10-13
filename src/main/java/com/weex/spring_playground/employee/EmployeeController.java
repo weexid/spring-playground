@@ -3,7 +3,7 @@ package com.weex.spring_playground.employee;
 import java.time.Instant;
 import java.util.List;
 
-import com.weex.spring_playground.config.common.ApiSuccessResponse;
+import com.weex.spring_playground.common.api.ApiSuccessResponse;
 import com.weex.spring_playground.employee.dto.CreateEmployeeRequest;
 import com.weex.spring_playground.employee.dto.EmployeeResponse;
 import com.weex.spring_playground.employee.dto.UpdateEmployeeRequest;
